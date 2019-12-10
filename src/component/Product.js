@@ -1,14 +1,22 @@
 import React from "react";
 import { AiOutlineDollar, AiOutlineShoppingCart } from "react-icons/ai";
 
-export default function Product({ title, price }) {
+export default function Product(props) {
   return (
-    <li className="list">
-      <h4>{title}</h4>
+    <li className="list" key={props.id}>
+      <h4>{props.title}</h4>
       <span>
-        {price} <AiOutlineDollar />
+        {props.price} <AiOutlineDollar />
       </span>
-      <button>
+      <button
+        onClick={() =>
+          props.handleAddToCart({
+            title: props.title,
+            id: props.id,
+            price: props.price
+          })
+        }
+      >
         Add To Cart <AiOutlineShoppingCart />
       </button>
     </li>

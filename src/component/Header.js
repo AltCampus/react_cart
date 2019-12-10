@@ -1,13 +1,15 @@
 import React from "react";
 import { MdAddShoppingCart } from "react-icons/md";
 
-export default function Header() {
+export default function Header(props) {
   return (
     <header>
-      <div>Cart</div>
-      <div className="cart__item">
+      <div className="cart__text" onClick={() => props.handleCart("products")}>
+        Cart
+      </div>
+      <div className="cart__item" onClick={() => props.handleCart("cart")}>
         <MdAddShoppingCart />
-        <span>Empty</span>
+        <span className="cart__count">{props.cart.length}</span>
       </div>
     </header>
   );
