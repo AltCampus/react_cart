@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { render } from "react-dom";
 
 import data from "./data.json";
@@ -6,14 +6,19 @@ import Product from "./component/Product.js";
 import "./styles/main.scss";
 import "./styles/normalize.css";
 import Header from "./component/Header.js";
+import Checkout from "./Checkout";
 
-const Products = props => (
-  <ul>
-    {data.products.map(product => (
-      <Product {...product} handleAddToCart={props.handleAddToCart} />
-    ))}
-  </ul>
-);
+class Products extends Component {
+  render() {
+    return (
+      <ul>
+        {data.products.map(product => (
+          <Product {...product} handleAddToCart={this.props.handleAddToCart} />
+        ))}
+      </ul>
+    );
+  }
+}
 
 const Total = props => {
   var total = props.allData.map(item => item.price).reduce((a, c) => a + c);
@@ -47,37 +52,15 @@ const Cart = props => {
   );
 };
 
-const Checkout = () => {
-  return (
-    <div>
-      <form action="">
-        <label htmlFor="">Name</label>
-        <input type="text" />
-        <label htmlFor="">Email</label>
-        <input type="email" />
-        <label htmlFor="">Phone No</label>
-        <input type="phone" />
-        <label htmlFor="">Address</label>
-        <input type="text" />
-        <label htmlFor="">State (Select)</label>
-        <input type="text" />
-        <label htmlFor="">Pincode</label>
-        <input type="text" />
-        <label htmlFor="">Radio (Home | Office)</label>
-        <input type="text" />
-      </form>
-    </div>
-  );
-};
-
-class App extends React.Component {
+class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       cart: [],
-      activePage: "products"
+      activePage: "checkout"
     };
   }
+
   handleAddToCart = id => {
     this.setState({ cart: this.state.cart.concat(id) });
   };
